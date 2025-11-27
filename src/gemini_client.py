@@ -10,11 +10,11 @@ class GeminiClient:
             system_instruction=Prompts.SYSTEM_INSTRUCTION
         )
 
-    def analyze_diff(self, diff_text: str, title: str, description: str) -> str:
+    def analyze_diff(self, diff_text: str, title: str, description: str, extra_context: str = "") -> str:
         """
-        Sends the diff to Gemini and returns the review text.
+        Sends the diff and optional context to Gemini.
         """
-        prompt = Prompts.generate_review_prompt(diff_text, title, description)
+        prompt = Prompts.generate_review_prompt(diff_text, title, description, extra_context)
         
         try:
             response = self.model.generate_content(prompt)
