@@ -26,6 +26,19 @@ class GitLabClient:
         mr.notes.create({'body': comment_body})
         print(f"Comment posted on MR {mr.iid}")
 
+    def update_labels(self, mr, add_labels: list, remove_labels: list = None):
+        """Updates labels on the Merge Request."""
+        if remove_labels:
+            for label in remove_labels:
+                if label in mr.labels:
+                    mr.labels.remove(label)
+        
+        for label in add_labels:
+            if label not in mr.labels:
+                mr.labels.append(label)
+        
+        mr.save()
+        print(f"Labels updated for MR {mr.iid}: {mr.labels}")
 
     def search_file_in_repo(self, project_id, query_term: str):
         """
@@ -37,7 +50,6 @@ class GitLabClient:
 
             results = project.search(scope='blobs', search=query_term)
             if results:
-
                 for res in results:
                     if "test" not in res['filename']:
                         return res['filename']

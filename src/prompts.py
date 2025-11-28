@@ -44,6 +44,11 @@ class Prompts:
     ```python
     # Corrected snippet only
     ```
+
+    ## Final Verdict
+    You must end your review with a single line containing the final verdict:
+    VERDICT: APPROVE (if the code is good and ready to merge)
+    VERDICT: NEEDS_FIXES (if there are bugs, security issues, or major style problems)
     """
 
     @staticmethod
